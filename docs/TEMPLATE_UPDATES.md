@@ -35,7 +35,11 @@ Choose a lowercase project slug and public display name (1–80 characters,
 without control characters, double quotes, or backslashes). Initialization adds a
 random suffix to the slug for isolated application identity, finds free local
 ports, and generates private credentials. Re-running initialization preserves
-an existing `.env`. Keep workspace package names stable; public branding comes
+an existing `.env`. Each `pnpm project:init` also resolves the latest stable
+cloudflared release and updates both Compose image pins to its multi-platform
+Docker digest. This requires GitHub and Docker registry access; failed lookups
+warn and retain existing pins. Initialization does not restart running connectors;
+apply the new image with `pnpm dev:tunnel:up` or `pnpm prod:tunnel:up`. Keep workspace package names stable; public branding comes
 from environment configuration. Changing answers later updates `project.json`,
 but intentionally does not rewrite an existing `.env` or production identity.
 

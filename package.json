@@ -25,7 +25,7 @@
         "db:generate": "pnpm --filter @fullstack-starter/backend db:generate",
         "db:push": "pnpm --filter @fullstack-starter/backend db:push",
         "test": "pnpm test:unit && pnpm test:cloudflare",
-        "test:unit": "pnpm build:shared && pnpm --filter @fullstack-starter/backend build && node --test backend/test/*.test.mjs infrastructure/compose.test.mjs infrastructure/config.test.mjs infrastructure/test-environment.test.mjs infrastructure/native-build.test.mjs infrastructure/electron.test.mjs infrastructure/tmux.test.mjs frontend/test/*.test.mjs infrastructure/process.test.mjs infrastructure/expo.test.mjs infrastructure/statsd.test.mjs",
+        "test:unit": "pnpm build:shared && pnpm --filter @fullstack-starter/backend build && node --test backend/test/*.test.mjs infrastructure/compose.test.mjs infrastructure/cloudflared-update.test.mjs infrastructure/config.test.mjs infrastructure/test-environment.test.mjs infrastructure/native-build.test.mjs infrastructure/electron.test.mjs infrastructure/tmux.test.mjs frontend/test/*.test.mjs infrastructure/process.test.mjs infrastructure/expo.test.mjs infrastructure/statsd.test.mjs",
         "test:cloudflare": "node --test infrastructure/cloudflare-tunnel.test.mjs",
         "dev:up": "node infrastructure/tmux.mjs start --ensure-services",
         "dev:rebuild": "node infrastructure/compose.mjs development up --build --detach --wait",
