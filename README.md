@@ -8,7 +8,10 @@ Auth, Redis/BullMQ, Docker, and optional provider integrations.
 ```
 
 The initializer creates a private `.env`, unique secrets and clone identity,
-selects free local ports, and preserves existing configuration. Docker starts the
+selects free local ports, and preserves existing configuration. Each initialization
+checks the latest stable cloudflared release and refreshes its development and
+production image pins with the Docker registry digest. If the lookup fails, setup
+warns and keeps the existing pins; rerun `pnpm project:init` to retry. Docker starts the
 core services, runs serialized migrations, and starts the applications. The
 usual application URL is <http://localhost:8080>; setup prints the actual URL.
 `./start.sh` also enables the System Stats agent and opens its account-pairing

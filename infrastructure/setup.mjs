@@ -5,6 +5,7 @@ import { spawnSync } from 'node:child_process'
 import { parseEnv } from 'node:util'
 import { cloneIdentity, loadEnvironment, localDatabaseUrl, resolveEnvironment } from './config.mjs'
 import { resolveDockerEnvironment } from './compose.mjs'
+import { updateCloudflared } from './cloudflared-update.mjs'
 
 const action = process.argv[2]
 const allocatedPorts = new Set()
@@ -66,6 +67,13 @@ try {
                 content = content.replace(new RegExp(`^${key}=.*$`, 'm'), () => `${key}=${value}`)
             writeFileSync('.env', content, { flag: 'wx', mode: 0o600 })
             console.log(`Created .env. Application: ${resolveEnvironment('development', configuration).APP_URL}`)
+        }
+        try {
+            console.log(`Cloudflared image updated: ${await updateCloudflared()}`)
+        } catch (error) {
+            console.warn(
+                `Cloudflared automatic update skipped: ${error.message}. Existing image pins retained when lookup fails; rerun pnpm project:init to retry.`,
+            )
         }
     } else if (action === 'doctor') {
         const major = Number(process.versions.node.split('.')[0])
